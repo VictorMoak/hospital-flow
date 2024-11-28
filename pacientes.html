@@ -27,6 +27,9 @@
 
     <h2 class="mt-5">Lista de Pacientes</h2>
     <table class="table table-striped mt-3">
+      <div class="mb-3">
+        <input type="text" id="search" class="form-control" placeholder="Digite o nome do paciente">
+      </div>
       <thead>
         <tr>
           <th>Nome</th>
@@ -38,9 +41,11 @@
       <tbody id="tabelaPacientes"></tbody>
     </table>
   </div>
+
   <script>
     const formPaciente = document.getElementById('formPaciente');
     const tabelaPacientes = document.getElementById('tabelaPacientes');
+    const searchInput = document.getElementById('search');
     let pacientes = [];
 
     formPaciente.addEventListener('submit', (e) => {
@@ -54,8 +59,14 @@
     });
 
     function atualizarTabela() {
+      const filtroNome = searchInput.value.toLowerCase();
       tabelaPacientes.innerHTML = '';
-      pacientes.forEach((paciente, index) => {
+      
+      const pacientesFiltrados = pacientes.filter(paciente => 
+        paciente.nome.toLowerCase().includes(filtroNome)
+      );
+      
+      pacientesFiltrados.forEach((paciente, index) => {
         tabelaPacientes.innerHTML += `
           <tr>
             <td>${paciente.nome}</td>
@@ -72,6 +83,9 @@
       pacientes.splice(index, 1);
       atualizarTabela();
     }
+
+    // Atualiza a tabela à medida que o usuário digita na barra de busca
+    searchInput.addEventListener('input', atualizarTabela);
   </script>
 </body>
 </html>
