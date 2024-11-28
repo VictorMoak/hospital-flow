@@ -41,7 +41,7 @@
   <script>
     const formPaciente = document.getElementById('formPaciente');
     const tabelaPacientes = document.getElementById('tabelaPacientes');
-    let pacientes = [];
+    let pacientes = JSON.parse(localStorage.getItem('pacientes')) || [];
 
     formPaciente.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -49,6 +49,7 @@
       const cpf = document.getElementById('cpf').value;
       const idade = document.getElementById('idade').value;
       pacientes.push({ nome, cpf, idade });
+      localStorage.setItem('pacientes', JSON.stringify(pacientes));
       atualizarTabela();
       formPaciente.reset();
     });
@@ -70,8 +71,11 @@
 
     function removerPaciente(index) {
       pacientes.splice(index, 1);
+      localStorage.setItem('pacientes', JSON.stringify(pacientes));
       atualizarTabela();
     }
+
+    atualizarTabela();
   </script>
 </body>
 </html>

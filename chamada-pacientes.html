@@ -13,13 +13,14 @@
     <h2 id="pacienteAtual" class="mt-5"></h2>
   </div>
   <script>
-    const pacientes = ['João Silva', 'Maria Oliveira', 'Carlos Santos'];
+    let filaPacientes = JSON.parse(localStorage.getItem('filaPacientes')) || [];
     const pacienteAtual = document.getElementById('pacienteAtual');
     const chamarPaciente = document.getElementById('chamarPaciente');
 
     chamarPaciente.addEventListener('click', () => {
-      if (pacientes.length > 0) {
-        const chamado = pacientes.shift();
+      if (filaPacientes.length > 0) {
+        const chamado = filaPacientes.shift();
+        localStorage.setItem('filaPacientes', JSON.stringify(filaPacientes));
         pacienteAtual.textContent = `Paciente chamado: ${chamado}`;
       } else {
         pacienteAtual.textContent = 'Não há pacientes na fila.';

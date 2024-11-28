@@ -12,7 +12,7 @@
     <form id="formAtendimento" class="mt-4">
       <div class="mb-3">
         <label for="paciente" class="form-label">Nome do Paciente:</label>
-        <input type="text" id="paciente" class="form-control" required>
+        <select id="paciente" class="form-control" required></select>
       </div>
       <div class="mb-3">
         <label for="descricao" class="form-label">Descrição:</label>
@@ -23,12 +23,30 @@
   </div>
   <script>
     const formAtendimento = document.getElementById('formAtendimento');
+    const selectPaciente = document.getElementById('paciente');
+    const pacientes = JSON.parse(localStorage.getItem('pacientes')) || [];
+
+    function carregarPacientes() {
+      selectPaciente.innerHTML = '';
+      pacientes.forEach(paciente => {
+        const option = document.createElement('option');
+        option.value = paciente.nome;
+        option.textContent = paciente.nome;
+        selectPaciente.appendChild(option);
+      });
+    }
 
     formAtendimento.addEventListener('submit', (e) => {
       e.preventDefault();
+      const pacienteNome = selectPaciente.value;
+      let filaPacientes = JSON.parse(localStorage.getItem('filaPacientes')) || [];
+      filaPacientes.push(pacienteNome);
+      localStorage.setItem('filaPacientes', JSON.stringify(filaPacientes));
       alert('Atendimento criado com sucesso!');
       formAtendimento.reset();
     });
+
+    carregarPacientes();
   </script>
 </body>
 </html>
