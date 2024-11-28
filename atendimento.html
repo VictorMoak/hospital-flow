@@ -20,13 +20,39 @@
       </div>
       <button type="submit" class="btn btn-primary">Salvar Atendimento</button>
     </form>
+
+    <h2 class="mt-5">Histórico de Atendimentos</h2>
+    <ul id="historicoAtendimentos" class="list-group mt-3">
+      <!-- Atendimentos serão adicionados aqui -->
+    </ul>
   </div>
+
   <script>
     const formAtendimento = document.getElementById('formAtendimento');
+    const historicoAtendimentos = document.getElementById('historicoAtendimentos');
 
     formAtendimento.addEventListener('submit', (e) => {
       e.preventDefault();
+
+      // Capturar os valores do formulário
+      const paciente = document.getElementById('paciente').value;
+      const descricao = document.getElementById('descricao').value;
+
+      // Criar um item de lista para o novo atendimento
+      const listItem = document.createElement('li');
+      listItem.className = 'list-group-item';
+      listItem.innerHTML = `
+        <strong>Paciente:</strong> ${paciente}<br>
+        <strong>Descrição:</strong> ${descricao}
+      `;
+
+      // Adicionar o item à lista de histórico
+      historicoAtendimentos.appendChild(listItem);
+
+      // Exibir mensagem de sucesso
       alert('Atendimento criado com sucesso!');
+
+      // Limpar o formulário
       formAtendimento.reset();
     });
   </script>
