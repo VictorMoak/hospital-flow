@@ -29,9 +29,9 @@
     <table class="table table-striped mt-3">
       <thead>
         <tr>
-          <th>Nome</th>
-          <th>CPF</th>
-          <th>Idade</th>
+          <th id="headerNome" style="cursor: pointer;">Nome</th>
+          <th id="headerCpf" style="cursor: pointer;">CPF</th>
+          <th id="headerIdade" style="cursor: pointer;">Idade</th>
           <th>Ações</th>
         </tr>
       </thead>
@@ -42,6 +42,9 @@
     const formPaciente = document.getElementById('formPaciente');
     const tabelaPacientes = document.getElementById('tabelaPacientes');
     let pacientes = [];
+    let ordemNome = true;
+    let ordemCpf = true;
+    let ordemIdade = true;
 
     formPaciente.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -72,6 +75,35 @@
       pacientes.splice(index, 1);
       atualizarTabela();
     }
+
+    function ordenarTabela(campo, ordem) {
+      pacientes.sort((a, b) => {
+        if (campo === 'nome') {
+          return ordem ? a.nome.localeCompare(b.nome) : b.nome.localeCompare(a.nome);
+        } else if (campo === 'cpf') {
+          return ordem ? a.cpf.localeCompare(b.cpf) : b.cpf.localeCompare(a.cpf);
+        } else if (campo === 'idade') {
+          return ordem ? a.idade - b.idade : b.idade - a.idade;
+        }
+      });
+      atualizarTabela();
+    }
+
+    document.getElementById('headerNome').addEventListener('click', () => {
+      ordenarTabela('nome', ordemNome);
+      ordemNome = !ordemNome;
+    });
+
+    document.getElementById('headerCpf').addEventListener('click', () => {
+      ordenarTabela('cpf', ordemCpf);
+      ordemCpf = !ordemCpf;
+    });
+
+    document.getElementById('headerIdade').addEventListener('click', () => {
+      ordenarTabela('idade', ordemIdade);
+      ordemIdade = !ordemIdade;
+    });
+    
   </script>
 </body>
 </html>
