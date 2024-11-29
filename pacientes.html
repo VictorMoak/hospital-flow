@@ -29,9 +29,15 @@
     <table class="table table-striped mt-3">
       <thead>
         <tr>
-          <th>Nome</th>
-          <th>CPF</th>
-          <th>Idade</th>
+          <th>
+            <button class="btn btn-link" onclick="sortBy('nome')">Nome</button>
+          </th>
+          <th>
+            <button class="btn btn-link" onclick="sortBy('cpf')">CPF</button>
+          </th>
+          <th>
+            <button class="btn btn-link" onclick="sortBy('idade')">Idade</button>
+          </th>
           <th>Ações</th>
         </tr>
       </thead>
@@ -42,12 +48,13 @@
     const formPaciente = document.getElementById('formPaciente');
     const tabelaPacientes = document.getElementById('tabelaPacientes');
     let pacientes = [];
+    let sortOrder = { nome: true, cpf: true, idade: true }; 
 
     formPaciente.addEventListener('submit', (e) => {
       e.preventDefault();
       const nome = document.getElementById('nome').value;
       const cpf = document.getElementById('cpf').value;
-      const idade = document.getElementById('idade').value;
+      const idade = parseInt(document.getElementById('idade').value, 10);
       pacientes.push({ nome, cpf, idade });
       atualizarTabela();
       formPaciente.reset();
@@ -70,6 +77,16 @@
 
     function removerPaciente(index) {
       pacientes.splice(index, 1);
+      atualizarTabela();
+    }
+
+    function sortBy(field) {
+      pacientes.sort((a, b) => {
+        if (a[field] < b[field]) return sortOrder[field] ? -1 : 1;
+        if (a[field] > b[field]) return sortOrder[field] ? 1 : -1;
+        return 0;
+      });
+      sortOrder[field] = !sortOrder[field]; 
       atualizarTabela();
     }
   </script>
