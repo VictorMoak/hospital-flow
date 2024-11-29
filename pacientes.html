@@ -27,6 +27,15 @@
 
     <h2 class="mt-5">Lista de Pacientes</h2>
     <table class="table table-striped mt-3">
+      <div class="mb-3">
+        <label for="buscaCPF" class="form-label">Pesquisar por CPF:</label>
+        <input type="text" id="buscaCPF" class="form-control" placeholder="Digite o CPF do paciente">
+      </div>
+      <div class="mb-3">
+        <label for="buscaNome" class="form-label">Pesquisar por nome:</label>
+        <input type="text" id="buscaNome" class="form-control" placeholder="Digite o nome do paciente">
+      </div>
+
       <thead>
         <tr>
           <th>Nome</th>
@@ -41,6 +50,9 @@
   <script>
     const formPaciente = document.getElementById('formPaciente');
     const tabelaPacientes = document.getElementById('tabelaPacientes');
+    const inputBuscaCPF = document.getElementById('buscaCPF');
+    const inputBuscaNome = document.getElementById('buscaNome');
+
     let pacientes = [];
 
     formPaciente.addEventListener('submit', (e) => {
@@ -53,9 +65,16 @@
       formPaciente.reset();
     });
 
-    function atualizarTabela() {
+    function atualizarTabela(tipoDeBusca = 'cpf') { 
+      const inputBusca = (tipoDeBusca === 'cpf') ? inputBuscaCPF : inputBuscaNome
+      const filtro = inputBusca.value.toLowerCase();
       tabelaPacientes.innerHTML = '';
-      pacientes.forEach((paciente, index) => {
+
+      const pacientesFiltrados = pacientes.filter(paciente => 
+        paciente[tipoDeBusca].toLowerCase().includes(filtro)
+      );
+
+      pacientesFiltrados.forEach((paciente, index) => {
         tabelaPacientes.innerHTML += `
           <tr>
             <td>${paciente.nome}</td>
@@ -72,6 +91,10 @@
       pacientes.splice(index, 1);
       atualizarTabela();
     }
+
+  inputBuscaCPF.addEventListener('input', () => atualizarTabela('cpf'));
+  inputBuscaNome.addEventListener('input', () => atualizarTabela('nome'));
+
   </script>
 </body>
 </html>
