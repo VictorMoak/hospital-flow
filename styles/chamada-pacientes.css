@@ -1,0 +1,24 @@
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+.dark-mode .btn {
+    background-color: #444;
+    color: white;
+}
+
+.dark-mode .btn-primary {
+    background-color: #007bff;
+}
+
+.dark-mode .container {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.dark-mode h1,
+.dark-mode h2 {
+    color: white;
+}
