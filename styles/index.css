@@ -1,0 +1,21 @@
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+.dark-mode .btn {
+    background-color: #444;
+    color: white;
+}
+
+.dark-mode .btn-primary {
+    background-color: #007bff;
+}
+
+.dark-mode .btn-success {
+    background-color: #28a745;
+}
+
+.dark-mode .btn-warning {
+    background-color: #ffc107;
+}
