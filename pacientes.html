@@ -43,12 +43,23 @@
     const tabelaPacientes = document.getElementById('tabelaPacientes');
     let pacientes = [];
 
+    function carregarPacientes() {
+      const pacientesSalvos = localStorage.getItem('pacientes');
+      pacientes = pacientesSalvos ? JSON.parse(pacientesSalvos) : [];
+      atualizarTabela();
+    }
+
+    function salvarPacientes() {
+      localStorage.setItem('pacientes', JSON.stringify(pacientes));
+    }
+
     formPaciente.addEventListener('submit', (e) => {
       e.preventDefault();
       const nome = document.getElementById('nome').value;
       const cpf = document.getElementById('cpf').value;
       const idade = document.getElementById('idade').value;
       pacientes.push({ nome, cpf, idade });
+      salvarPacientes();
       atualizarTabela();
       formPaciente.reset();
     });
@@ -70,8 +81,11 @@
 
     function removerPaciente(index) {
       pacientes.splice(index, 1);
+      salvarPacientes();
       atualizarTabela();
     }
+
+    carregarPacientes();
   </script>
 </body>
 </html>
