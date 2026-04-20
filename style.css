@@ -1,0 +1,16 @@
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+  }
+  table.dark-mode {
+    background-color: #1e1e1e;
+    color: #ffffff;
+  }
+  table.dark-mode th, table.dark-mode td {
+    border-color: #2e2e2e;
+  }
+  .btn-toggle-theme {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
